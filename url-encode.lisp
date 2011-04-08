@@ -33,7 +33,7 @@ encoded form of that character."
               (,writer (logior #b10000000 (ldb (byte 6 0) ,char-code))))))))
 
 (defun url-encode (string &optional (to-escape "\"#$%&+,/:;<=>?@"))
-  (declare (optimize speed (safety 0)))
+  (declare (optimize speed))
   (let ((size (loop :for ch :across string :for code := (char-code ch) :sum
                  (cond ((> code 127) (* (char-utf-8-byte-length ch) 3))
                        ((or (< code 33) (find ch to-escape)) 3)
@@ -94,7 +94,7 @@ extract the character they denote."
                                 (six-bits (next-byte))) 65536)))))
 
 (defun url-decode (string)
-  (declare (optimize speed (safety 0)))
+  (declare (optimize speed))
   (let ((buf (make-string (length string)))
         (utf-buf (make-array 4 :element-type '(unsigned-byte 8))))
     (with-input-from-string (in string)
