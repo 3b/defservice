@@ -163,7 +163,7 @@
 (defun dispatch-request (start-context method raw-uri param-reader)
   (let ((method-pos (or (method-pos method) (method-not-allowed)))
         (parts (split-uri raw-uri)))
-    (nlet part ((left (split-uri raw-uri))
+    (nlet part ((left parts)
                 (uri (get-context start-context))
                 (names ()))
       (if left
