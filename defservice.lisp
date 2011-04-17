@@ -171,7 +171,9 @@
                 (continue (uri-continue uri))
                 next-uri wrap)
             (when (equal elt "")
-              (unless (and (typep continue 'named-resource) (named-resource-allow-empty continue))
+              (unless (or (not (cdr left))
+                          (and (typep continue 'named-resource)
+                               (named-resource-allow-empty continue)))
                 (moved-permanently (with-output-to-string (out)
                                      (loop :for cons :on parts :do
                                         (unless (eq cons left)
